@@ -8,17 +8,13 @@ import java.time.LocalDate;
 import java.time.LocalDateTime;
 
 /**
- * Represents a book loan transaction.
- * <p>
- * Tracks the lending of books to members.
- * Corresponds to the 'loan' table in the database.
- * </p>
+ * Domain entity representing a book loan transaction.
+ * 
+ * <p>A loan tracks when a member borrows a book, the due date,
+ * and whether the book has been returned.</p>
  * 
  * @author Coder
  * @version 1.0
- * @since 1.0
- * @see Book
- * @see Member
  */
 public class Loan {
     
@@ -30,178 +26,128 @@ public class Loan {
     private Boolean returned;
     private LocalDateTime createdAt;
     private LocalDateTime updatedAt;
-    
-    // Related entities (optional, for display purposes)
-    private Book book;
-    private Member member;
-    
-    // Constructors
-    
+
     /**
      * Default constructor.
      */
     public Loan() {
-        this.dateLoaned = LocalDate.now();
         this.returned = false;
     }
-    
+
     /**
-     * Creates a new loan.
+     * Constructor with required fields (without due date).
      * 
-     * @param memberId ID of the member borrowing the book
-     * @param bookId ID of the book being loaned
-     * @param dateDue date when the book should be returned
+     * @param memberId Member ID who is borrowing
+     * @param bookId Book ID being borrowed
+     * @param dateLoaned Date when the book was loaned
      */
-    public Loan(Integer memberId, Integer bookId, LocalDate dateDue) {
-        this();
+    public Loan(Integer memberId, Integer bookId, LocalDate dateLoaned) {
         this.memberId = memberId;
         this.bookId = bookId;
+        this.dateLoaned = dateLoaned;
+        this.returned = false;
+    }
+
+    /**
+     * Constructor with all required fields including due date.
+     * 
+     * @param memberId Member ID who is borrowing
+     * @param bookId Book ID being borrowed
+     * @param dateLoaned Date when the book was loaned
+     * @param dateDue Date when the book is due for return
+     */
+    public Loan(Integer memberId, Integer bookId, LocalDate dateLoaned, LocalDate dateDue) {
+        this.memberId = memberId;
+        this.bookId = bookId;
+        this.dateLoaned = dateLoaned;
+        this.dateDue = dateDue;
+        this.returned = false;
+    }
+
+    // Getters and Setters
+
+    public Integer getId() {
+        return id;
+    }
+
+    public void setId(Integer id) {
+        this.id = id;
+    }
+
+    public Integer getMemberId() {
+        return memberId;
+    }
+
+    public void setMemberId(Integer memberId) {
+        this.memberId = memberId;
+    }
+
+    public Integer getBookId() {
+        return bookId;
+    }
+
+    public void setBookId(Integer bookId) {
+        this.bookId = bookId;
+    }
+
+    public LocalDate getDateLoaned() {
+        return dateLoaned;
+    }
+
+    public void setDateLoaned(LocalDate dateLoaned) {
+        this.dateLoaned = dateLoaned;
+    }
+
+    public LocalDate getDateDue() {
+        return dateDue;
+    }
+
+    public void setDateDue(LocalDate dateDue) {
         this.dateDue = dateDue;
     }
-    
-    // Business logic methods
-    
+
+    public Boolean getReturned() {
+        return returned;
+    }
+
+    public void setReturned(Boolean returned) {
+        this.returned = returned;
+    }
+
+    public LocalDateTime getCreatedAt() {
+        return createdAt;
+    }
+
+    public void setCreatedAt(LocalDateTime createdAt) {
+        this.createdAt = createdAt;
+    }
+
+    public LocalDateTime getUpdatedAt() {
+        return updatedAt;
+    }
+
+    public void setUpdatedAt(LocalDateTime updatedAt) {
+        this.updatedAt = updatedAt;
+    }
+
     /**
-     * Checks if the loan is overdue.
+     * Checks if the loan is currently overdue.
      * 
-     * @return true if current date is past due date and not returned
+     * @return true if past due date and not returned
      */
     public boolean isOverdue() {
-        return !returned && 
-               dateDue != null && 
-               LocalDate.now().isAfter(dateDue);
+        return !returned && dateDue != null && LocalDate.now().isAfter(dateDue);
     }
-    
+
     /**
-     * Marks the loan as returned.
-     */
-    public void markAsReturned() {
-        this.returned = true;
-        markAsUpdated();
-    }
-    
-    /**
-     * Calculates days overdue.
+     * Checks if the loan is still active (not returned).
      * 
-     * @return number of days overdue, or 0 if not overdue
-     */
-    public long getDaysOverdue() {
-        if (!isOverdue()) {
-            return 0;
-        }
-        return java.time.temporal.ChronoUnit.DAYS.between(dateDue, LocalDate.now());
-    }
-    
-    /**
-     * Calculates days until due date.
-     * 
-     * @return days remaining until due, negative if overdue
-     */
-    public long getDaysUntilDue() {
-        if (returned || dateDue == null) {
-            return 0;
-        }
-        return java.time.temporal.ChronoUnit.DAYS.between(LocalDate.now(), dateDue);
-    }
-    
-    /**
-     * Checks if the loan is active (not returned).
-     * 
-     * @return true if loan is still active
+     * @return true if not returned
      */
     public boolean isActive() {
         return !returned;
     }
-    
-    /**
-     * Updates the updatedAt timestamp to current time.
-     */
-    public void markAsUpdated() {
-        this.updatedAt = LocalDateTime.now();
-    }
-    
-    // Getters and Setters
-    
-    public Integer getId() {
-        return id;
-    }
-    
-    public void setId(Integer id) {
-        this.id = id;
-    }
-    
-    public Integer getMemberId() {
-        return memberId;
-    }
-    
-    public void setMemberId(Integer memberId) {
-        this.memberId = memberId;
-    }
-    
-    public Integer getBookId() {
-        return bookId;
-    }
-    
-    public void setBookId(Integer bookId) {
-        this.bookId = bookId;
-    }
-    
-    public LocalDate getDateLoaned() {
-        return dateLoaned;
-    }
-    
-    public void setDateLoaned(LocalDate dateLoaned) {
-        this.dateLoaned = dateLoaned;
-    }
-    
-    public LocalDate getDateDue() {
-        return dateDue;
-    }
-    
-    public void setDateDue(LocalDate dateDue) {
-        this.dateDue = dateDue;
-    }
-    
-    public Boolean getReturned() {
-        return returned;
-    }
-    
-    public void setReturned(Boolean returned) {
-        this.returned = returned;
-    }
-    
-    public LocalDateTime getCreatedAt() {
-        return createdAt;
-    }
-    
-    public void setCreatedAt(LocalDateTime createdAt) {
-        this.createdAt = createdAt;
-    }
-    
-    public LocalDateTime getUpdatedAt() {
-        return updatedAt;
-    }
-    
-    public void setUpdatedAt(LocalDateTime updatedAt) {
-        this.updatedAt = updatedAt;
-    }
-    
-    public Book getBook() {
-        return book;
-    }
-    
-    public void setBook(Book book) {
-        this.book = book;
-    }
-    
-    public Member getMember() {
-        return member;
-    }
-    
-    public void setMember(Member member) {
-        this.member = member;
-    }
-    
+
     @Override
     public String toString() {
         return "Loan{" +
@@ -211,7 +157,8 @@ public class Loan {
                 ", dateLoaned=" + dateLoaned +
                 ", dateDue=" + dateDue +
                 ", returned=" + returned +
-                ", isOverdue=" + isOverdue() +
+                ", createdAt=" + createdAt +
+                ", updatedAt=" + updatedAt +
                 '}';
     }
 }
