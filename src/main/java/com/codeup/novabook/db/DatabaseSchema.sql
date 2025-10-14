@@ -1,0 +1,64 @@
+/* 
+ * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
+ * Click nbfs://nbhost/SystemFileSystem/Templates/Other/SQLTemplate.sql to edit this template
+ */
+/**
+ * Author:  Coder
+ * Created: 14/10/2025
+ */
+
+CREATE DATABASE IF NOT EXISTS nova_db CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci;
+USE nova_db;
+
+CREATE USER 'nova_user'@'localhost' IDENTIFIED BY '321novabook';
+GRANT ALL PRIVILEGES ON nova_db.* TO 'nova_user'@'localhost';
+FLUSH PRIVILEGES;
+
+CREATE TABLE IF NOT EXISTS users (
+    id INT AUTO_INCREMENT PRIMARY KEY,
+    name VARCHAR(100) NOT NULL,
+    email VARCHAR(120) NOT NULL UNIQUE,
+    password VARCHAR(255) NOT NULL,
+    phone VARCHAR(30) NOT NULL,
+    role ENUM('USER','ADMIN') NOT NULL DEFAULT 'USER',
+    access_level ENUM('READ_ONLY','READ_WRITE', 'MANAGE') NOT NULL DEFAULT 'READ_WRITE',
+    active BOOLEAN NOT NULL DEFAULT TRUE,
+    deleted BOOLEAN NOT NULL DEFAULT FALSE,
+    created_at TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP,
+    updated_at TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP
+);
+
+CREATE TABLE IF NOT EXISTS book (
+    id INT AUTO_INCREMENT PRIMARY KEY,
+    isbn VARCHAR(20) NOT NULL UNIQUE,
+    title VARCHAR(100) NOT NULL,
+    author VARCHAR(100) NOT NULL,
+    stock INT NOT NULL,
+    created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+    updated_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP
+);
+
+CREATE TABLE IF NOT EXISTS member (
+    id INT AUTO_INCREMENT PRIMARY KEY,
+    name VARCHAR(100) NOT NULL,
+    active BOOLEAN NOT NULL DEFAULT TRUE,
+    deleted BOOLEAN NOT NULL DEFAULT FALSE,
+    role ENUM('REGULAR','PREMIUM') NOT NULL DEFAULT 'REGULAR',
+    access_level ENUM('READ_ONLY','READ_WRITE', 'MANAGE') NOT NULL DEFAULT 'READ_WRITE',
+    created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+    updated_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP
+);
+
+CREATE TABLE IF NOT EXISTS loan (
+    id INT AUTO_INCREMENT PRIMARY KEY,
+    member_id INT,
+    book_id INT,
+    date_loaned DATE,
+    date_due DATE,
+    returned BOOLEAN,
+    created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+    updated_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
+    FOREIGN KEY (member_id) REFERENCES member(id),
+    FOREIGN KEY (book_id) REFERENCES book(id)
+);
+
