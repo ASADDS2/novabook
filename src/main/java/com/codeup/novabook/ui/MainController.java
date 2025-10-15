@@ -16,6 +16,7 @@ import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.control.*;
+import javafx.stage.FileChooser;
 
 import java.io.FileReader;
 import java.io.FileWriter;
@@ -180,11 +181,15 @@ public class MainController {
     @FXML
     public void onImportBooksCsv(ActionEvent e) {
         try {
-            // expects a file at src/main/sources/books.csv to respect your structure
-            var path = Paths.get("src/main/sources/books.csv");
-            try (FileReader r = new FileReader(path.toFile())) {
+            FileChooser chooser = new FileChooser();
+            chooser.setTitle("Import Books CSV");
+            chooser.getExtensionFilters().add(new FileChooser.ExtensionFilter("CSV Files", "*.csv"));
+            chooser.setInitialDirectory(resolveImportsDir());
+            var file = chooser.showOpenDialog(booksTable.getScene().getWindow());
+            if (file == null) return;
+            try (FileReader r = new FileReader(file)) {
                 int n = bookService.importFromCsv(r);
-                showInfo("Imported " + n + " books");
+                showInfo("Imported " + n + " books from " + file.getAbsolutePath());
             }
             refreshBooks();
         } catch (Exception ex) { showError(ex); }
@@ -256,10 +261,15 @@ public class MainController {
     @FXML
     public void onImportMembersCsv(ActionEvent e) {
         try {
-            var path = Paths.get("src/main/sources/members.csv");
-            try (FileReader r = new FileReader(path.toFile())) {
+            FileChooser chooser = new FileChooser();
+            chooser.setTitle("Import Members CSV");
+            chooser.getExtensionFilters().add(new FileChooser.ExtensionFilter("CSV Files", "*.csv"));
+            chooser.setInitialDirectory(resolveImportsDir());
+            var file = chooser.showOpenDialog(membersTable.getScene().getWindow());
+            if (file == null) return;
+            try (FileReader r = new FileReader(file)) {
                 int n = memberService.importFromCsv(r);
-                showInfo("Imported " + n + " members");
+                showInfo("Imported " + n + " members from " + file.getAbsolutePath());
             }
             refreshMembers();
         } catch (Exception ex) { showError(ex); }
@@ -343,6 +353,29 @@ public class MainController {
         } catch (Exception ex) { showError(ex); }
     }
 
+    @FXML
+    public void onImportLoansCsv(ActionEvent e) {
+        try {
+            FileChooser chooser = new FileChooser();
+            chooser.setTitle("Import Loans CSV");
+            chooser.getExtensionFilters().add(new FileChooser.ExtensionFilter("CSV Files", "*.csv"));
+            chooser.setInitialDirectory(resolveImportsDir());
+            var file = chooser.showOpenDialog(loansTable.getScene().getWindow());
+            if (file == null) return;
+            try (FileReader r = new FileReader(file)) {
+                var loans = com.codeup.novabook.util.csv.LoanCsv.read(r);
+                int n = 0;
+                for (var l : loans) {
+                    // Import raw loans via service create (does not adjust stock)
+                    loanService.create(l);
+                    n++;
+                }
+                showInfo("Imported " + n + " loans from " + file.getAbsolutePath());
+            }
+            refreshLoans();
+        } catch (Exception ex) { showError(ex); }
+    }
+
     private void showError(Exception e) {
         Alert alert = new Alert(Alert.AlertType.ERROR, e.getMessage(), ButtonType.OK);
         alert.showAndWait();
@@ -361,6 +394,17 @@ public class MainController {
         } catch (Exception e) {
             // Fallback: current working directory
             return Path.of(fileName);
+        }
+    }
+
+    // Directory used as default for imports via FileChooser
+    private java.io.File resolveImportsDir() {
+        try {
+            Path dir = Path.of(System.getProperty("user.home"), "Novabook", "imports");
+            java.nio.file.Files.createDirectories(dir);
+            return dir.toFile();
+        } catch (Exception e) {
+            return new java.io.File(System.getProperty("user.home"));
         }
     }
 }

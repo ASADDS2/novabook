@@ -52,7 +52,24 @@
                                 <Button text="Import CSV" onAction="#onImportMembersCsv" />
                                 <Button text="Export CSV" onAction="#onExportMembersCsv" />
                             </HBox>
-                            <TableView fx:id="membersTable" prefHeight="400" />
+                            <TableView fx:id="membersTable" prefHeight="320">
+                                <columns>
+                                    <TableColumn fx:id="colMemberId" text="ID" prefWidth="60" />
+                                    <TableColumn fx:id="colMemberName" text="Name" prefWidth="200" />
+                                    <TableColumn fx:id="colMemberRole" text="Role" prefWidth="120" />
+                                    <TableColumn fx:id="colMemberAccess" text="Access" prefWidth="120" />
+                                    <TableColumn fx:id="colMemberActive" text="Active" prefWidth="80" />
+                                </columns>
+                            </TableView>
+                            <HBox spacing="6">
+                                <TextField fx:id="memberNameField" promptText="Name" />
+                                <ChoiceBox fx:id="memberRoleChoice" />
+                                <ChoiceBox fx:id="memberAccessChoice" />
+                                <CheckBox fx:id="memberActiveCheck" text="Active" selected="true" />
+                                <Button text="Add" onAction="#onAddMember" />
+                                <Button text="Update" onAction="#onUpdateMember" />
+                                <Button text="Delete (soft)" onAction="#onDeleteMember" />
+                            </HBox>
                         </VBox>
                     </content>
                 </Tab>
@@ -68,9 +85,24 @@
                                 <TextField fx:id="dueDateField" promptText="Due Date (YYYY-MM-DD)" />
                                 <Button text="Borrow" onAction="#onBorrowBook" />
                                 <Button text="Return Selected" onAction="#onReturnLoan" />
+                                <Button text="Import CSV" onAction="#onImportLoansCsv" />
                                 <Button text="Export Overdue Loans" onAction="#onExportOverdueLoans" />
+                                <Button text="Export All Loans" onAction="#onExportAllLoansCsv" />
                             </HBox>
-                            <TableView fx:id="loansTable" prefHeight="400" />
+                            <TableView fx:id="loansTable" prefHeight="320">
+                                <columns>
+                                    <TableColumn fx:id="colLoanId" text="ID" prefWidth="60" />
+                                    <TableColumn fx:id="colLoanMember" text="Member ID" prefWidth="100" />
+                                    <TableColumn fx:id="colLoanBook" text="Book ID" prefWidth="100" />
+                                    <TableColumn fx:id="colLoanLoaned" text="Loaned" prefWidth="120" />
+                                    <TableColumn fx:id="colLoanDue" text="Due" prefWidth="120" />
+                                    <TableColumn fx:id="colLoanReturned" text="Returned" prefWidth="100" />
+                                </columns>
+                            </TableView>
+                            <HBox spacing="6">
+                                <Button text="Update Due Date" onAction="#onUpdateLoanDueDate" />
+                                <Button text="Delete Loan" onAction="#onDeleteLoan" />
+                            </HBox>
                         </VBox>
                     </content>
                 </Tab>
