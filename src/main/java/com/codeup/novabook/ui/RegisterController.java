@@ -44,7 +44,7 @@ public class RegisterController {
             u.setRole(roleChoice.getValue());
             u.setAccessLevel(accessChoice.getValue());
             userService.create(u);
-            new Alert(Alert.AlertType.INFORMATION, "Usuario creado", ButtonType.OK).showAndWait();
+            new Alert(Alert.AlertType.INFORMATION, "User created", ButtonType.OK).showAndWait();
             goToLogin();
         } catch (Exception ex) {
             new Alert(Alert.AlertType.ERROR, ex.getMessage(), ButtonType.OK).showAndWait();

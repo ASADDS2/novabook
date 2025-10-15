@@ -13,13 +13,12 @@ public class Novabook extends Application {
     public void start(Stage stage) throws Exception {
         com.codeup.novabook.infra.LogConfig.configure();
         
-        // 🚨 RUTA AJUSTADA: Usamos la ruta relativa "ui/LoginView.fxml" 
-        // respecto al paquete de la clase Novabook (com.codeup.novabook).
+        // Adjusted path: use relative path "ui/LoginView.fxml" based on this class package (com.codeup.novabook)
         try {
             FXMLLoader loader = new FXMLLoader(getClass().getResource("ui/LoginView.fxml"));
             Scene scene = new Scene(loader.load(), 600, 400);
             
-            // 🚨 RUTA AJUSTADA para el CSS
+            // Adjusted path for CSS
             scene.getStylesheets().add(getClass().getResource("ui/styles.css").toExternalForm());
             
             stage.setTitle("NovaBook - Login");
@@ -27,10 +26,10 @@ public class Novabook extends Application {
             stage.show();
             
         } catch (IOException e) {
-            // Manejo básico de la excepción si el archivo sigue sin encontrarse
-            System.err.println("Error al cargar el FXML o CSS. Verifique la ubicación en src/main/java/com/codeup/novabook/ui/");
+            // Basic handling if FXML or CSS file is not found
+            System.err.println("Error loading FXML or CSS. Verify location at src/main/java/com/codeup/novabook/ui/");
             e.printStackTrace();
-            throw e; // Relanza la excepción para detener la aplicación si es necesario
+            throw e; // Rethrow to stop the application if necessary
         }
     }
 

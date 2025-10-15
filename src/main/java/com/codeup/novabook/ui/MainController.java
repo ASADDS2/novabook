@@ -336,7 +336,7 @@ public class MainController {
     @FXML
     public void onExportOverdueLoans(ActionEvent e) {
         try {
-            Path out = resolveExportPath("prestamos_vencidos.csv");
+            Path out = resolveExportPath("overdue_loans.csv");
             exportService.exportOverdueLoansCsv(out);
             showInfo("Exported overdue loans to " + out);
         } catch (Exception ex) { showError(ex); }

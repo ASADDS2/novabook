@@ -72,3 +72,13 @@ oct. 14, 2025 7:38:56 P. M. com.codeup.novabook.repository.impl.MemberjdbcRepos
 INFORMACIÓN: Member list executed
 oct. 14, 2025 7:38:56 P. M. com.codeup.novabook.repository.impl.LoanjdbcRepository findAll
 INFORMACIÓN: Loan list executed
+oct. 14, 2025 8:01:35 P. M. com.codeup.novabook.infra.ServiceRegistry <init>
+INFORMACIÓN: Database connection preflight: OK
+oct. 14, 2025 8:01:53 P. M. com.codeup.novabook.repository.impl.UserjdbcRepository authenticate
+ADVERTENCIA: BCrypt check failed, falling back to plain compare
+oct. 14, 2025 8:01:53 P. M. com.codeup.novabook.repository.impl.BookjdbcRepository findAll
+INFORMACIÓN: Book list executed
+oct. 14, 2025 8:01:53 P. M. com.codeup.novabook.repository.impl.MemberjdbcRepository findAll
+INFORMACIÓN: Member list executed
+oct. 14, 2025 8:01:53 P. M. com.codeup.novabook.repository.impl.LoanjdbcRepository findAll
+INFORMACIÓN: Loan list executed

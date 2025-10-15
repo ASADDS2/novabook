@@ -1,26 +1,26 @@
 # NovaBook
 
-Sistema de gestión de biblioteca (JavaFX + JDBC) con autenticación de usuarios, préstamos y catálogo de libros. Arquitectura por capas (domain, repository, service, ui) y utilidades de importación/exportación CSV.
+Library management system (JavaFX + JDBC) with user authentication, loans, and a book catalog. Layered architecture (domain, repository, service, ui) and CSV import/export utilities.
 
-## i. Descripción general del sistema
-- Catálogo de libros: alta/edición/baja, búsqueda y gestión de stock.
-- Usuarios del sistema: roles (USER, ADMIN) y niveles de acceso (READ_ONLY, READ_WRITE, MANAGE).
-- Préstamos: registrar préstamo/devolución, cálculo de multas y exportación de préstamos vencidos.
-- UI de escritorio con JavaFX: vistas FXML, controladores y estilos.
-- Autenticación: pantalla de Login y Registro. Contraseñas almacenadas con BCrypt.
+## i. System overview
+- Book catalog: create/edit/delete, search, and stock management.
+- System users: roles (USER, ADMIN) and access levels (READ_ONLY, READ_WRITE, MANAGE).
+- Loans: register loan/return, fine calculation, and export overdue loans.
+- Desktop UI with JavaFX: FXML views, controllers, and styles.
+- Authentication: Login and Register screens. Passwords stored with BCrypt.
 
-## ii. Requisitos previos (Java, Maven, DB)
+## ii. Prerequisites (Java, Maven, DB)
 - Java 17+
 - Maven 3.8+
-- Base de datos: MySQL 8 (o PostgreSQL si lo configuras en application.properties)
-- Driver JDBC incluido vía Maven (MySQL Connector/J)
+- Database: MySQL 8 (or PostgreSQL if configured in application.properties)
+- JDBC driver via Maven (MySQL Connector/J)
 
-## iii. Pasos de configuración y ejecución
-1) Configurar la base de datos en application.properties (se usa el del classpath):
-   - Archivo efectivo: src/main/resources/application.properties
-   - También existe: src/main/sources/application.properties (de ejemplo). Asegúrate de mantenerlos coherentes si lo necesitas.
+## iii. Setup and run
+1) Configure the database in application.properties (the one from the classpath is used):
+   - Effective file: src/main/resources/application.properties
+   - There is also: src/main/sources/application.properties (example). Keep them consistent if you need both.
 
-   Ejemplo (MySQL):
+   Example (MySQL):
    ```
    db.vendor=mysql
    db.host=localhost
@@ -29,46 +29,46 @@ Sistema de gestión de biblioteca (JavaFX + JDBC) con autenticación de usuarios
    db.user=novA_user
    db.password=A6g9Hj2tQ4r8Pz3X
    db.useSSL=false
-   # opcional: db.url=jdbc:mysql://localhost:3306/nova_db?serverTimezone=UTC
+   # optional: db.url=jdbc:mysql://localhost:3306/nova_db?serverTimezone=UTC
    ```
 
-   Notas de conexión (sin cambiar el properties):
-   - Si existe db.url, la conexión la usará directamente.
-   - Para MySQL con `useSSL=false`, la conexión añade de forma segura `allowPublicKeyRetrieval=true` vía propiedades de DriverManager (sin tocar el archivo).
+   Connection notes (without changing the properties file):
+   - If db.url exists, the connection uses it directly.
+   - For MySQL with `useSSL=false`, the connection safely adds `allowPublicKeyRetrieval=true` via DriverManager properties (no file changes needed).
 
-2) Construir el proyecto:
+2) Build the project:
    ```bash
    mvn -q -DskipTests package
    ```
 
-3) Ejecutar con el plugin de JavaFX:
+3) Run with the JavaFX plugin:
    ```bash
    mvn -q javafx:run
    ```
-   Alternativa (JAR con dependencias):
+   Alternative (fat JAR):
    ```bash
    java -jar target/novabook-app.jar
    ```
 
-4) Login y Registro:
-   - Al iniciar, verás la pantalla de Login.
-   - Puedes ir a "Registrarse" para crear un usuario; la contraseña se almacena con BCrypt.
+4) Login and Register:
+   - On startup, you will see the Login screen.
+   - You can go to "Register" to create a user; the password is stored with BCrypt.
 
-## iv. Capturas de pantalla de JOptionPane
-La aplicación usa diálogos JavaFX (Alert). Puedes sustituirlos por JOptionPane o capturar estos diálogos. Coloca las capturas en:
+## iv. Screenshots
+The app uses JavaFX dialogs (Alert). You can replace them with JOptionPane or capture these dialogs. Put screenshots in:
 - docs/images/login.png
 - docs/images/register.png
 - docs/images/error-dialog.png
 - docs/images/info-dialog.png
 
-En este README se referencian así:
+They are referenced in this README as follows:
 ![Login](docs/images/login.png)
-![Registro](docs/images/register.png)
+![Register](docs/images/register.png)
 ![Error](docs/images/error-dialog.png)
 ![Info](docs/images/info-dialog.png)
 
-## v. Diagramas de Clases
-A continuación, un diagrama (Mermaid) simplificado de clases principales:
+## v. Class diagrams
+Below is a simplified Mermaid diagram of the main classes:
 ```mermaid
 classDiagram
   class User {
@@ -100,7 +100,6 @@ classDiagram
   IUserRepository <|.. UserjdbcRepository
   IBookRepository <|.. BookjdbcRepository
   IMemberRepository <|.. MemberjdbcRepository
-  ILoanRepository <|.. LoanjdbcRepository
   IUserService <|.. UserServiceImpl
   IBookService <|.. BookServiceImpl
   IMemberService <|.. MemberServiceImpl
@@ -111,36 +110,36 @@ classDiagram
   ServiceRegistry --> ILoanService
 ```
 
-## vi. Diagrama de Casos de Uso
+## vi. Use case diagram
 ```mermaid
 flowchart LR
-  A[Usuario del Sistema] -->|Iniciar sesión| B(Login)
-  A -->|Registrarse| C(Registro)
-  A -->|Gestionar libros| D(CRUD Libros)
-  A -->|Registrar préstamo| E(Prestar Libro)
-  A -->|Registrar devolución| F(Devolver Libro)
-  A -->|Exportar reportes| G(Exportación CSV)
+  A[System User] -->|Log in| B(Login)
+  A -->|Register| C(Register)
+  A -->|Manage books| D(Books CRUD)
+  A -->|Register loan| E(Borrow Book)
+  A -->|Register return| F(Return Book)
+  A -->|Export reports| G(CSV Export)
 ```
 
-## Estructura del proyecto
-- Código fuente: `src/main/java`
-- Recursos y configuración: `src/main/resources`
-- CSV y archivos de trabajo: `src/main/sources`
+## Project structure
+- Source code: `src/main/java`
+- Resources and configuration: `src/main/resources`
+- CSV and working files: `src/main/sources`
 - Tests: `src/test/java`
 
-Paquetes clave:
-- `com.codeup.novabook.domain` – Entidades
-- `com.codeup.novabook.repository` – Interfaces y JDBC
-- `com.codeup.novabook.service` – Interfaces de servicio
-- `com.codeup.novabook.service.impl` – Implementaciones
-- `com.codeup.novabook.ui` – FXML, controladores, estilos
-- `com.codeup.novabook.infra` – configuración, conexiones, registro de servicios
+Key packages:
+- `com.codeup.novabook.domain` – Entities
+- `com.codeup.novabook.repository` – Interfaces and JDBC
+- `com.codeup.novabook.service` – Service interfaces
+- `com.codeup.novabook.service.impl` – Implementations
+- `com.codeup.novabook.ui` – FXML, controllers, styles
+- `com.codeup.novabook.infra` – configuration, connections, service registry
 
-## Notas técnicas relevantes
-- ConnectionFactory ahora respeta `db.url` si existe y carga el driver (MySQL/PostgreSQL) sin tocar el properties.
-- Para MySQL con `useSSL=false` añade `allowPublicKeyRetrieval=true` como propiedad de conexión.
-- Registro de usuarios guarda la contraseña con BCrypt.
-- La app abre primero la vista de Login y navega al Main al autenticarse.
+## Technical notes
+- ConnectionFactory respects `db.url` if present and loads the driver (MySQL/PostgreSQL) without modifying the properties file.
+- For MySQL with `useSSL=false` it adds `allowPublicKeyRetrieval=true` as a connection property.
+- User registration stores the password with BCrypt.
+- The app first opens the Login view and navigates to Main after authentication.
 
-## Licencia
+## License
 MIT.

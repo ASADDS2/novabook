@@ -42,7 +42,7 @@ public class LoginController {
                 stage.setTitle("NovaBook");
                 stage.setScene(scene);
             } else {
-                new Alert(Alert.AlertType.ERROR, "Credenciales inválidas", ButtonType.OK).showAndWait();
+                new Alert(Alert.AlertType.ERROR, "Invalid credentials", ButtonType.OK).showAndWait();
             }
         } catch (Exception ex) {
             new Alert(Alert.AlertType.ERROR, ex.getMessage(), ButtonType.OK).showAndWait();
@@ -56,7 +56,7 @@ public class LoginController {
             FXMLLoader loader = new FXMLLoader(getClass().getResource("/com/codeup/novabook/ui/RegisterView.fxml"));
             Scene scene = new Scene(loader.load(), 600, 500);
             scene.getStylesheets().add(getClass().getResource("/com/codeup/novabook/ui/styles.css").toExternalForm());
-            stage.setTitle("NovaBook - Registro");
+            stage.setTitle("NovaBook - Register");
             stage.setScene(scene);
         } catch (Exception ex) {
             new Alert(Alert.AlertType.ERROR, ex.getMessage(), ButtonType.OK).showAndWait();

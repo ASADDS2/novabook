@@ -11,8 +11,8 @@
             <TextField fx:id="emailField" promptText="Email"/>
             <PasswordField fx:id="passwordField" promptText="Password"/>
             <HBox spacing="10">
-                <Button fx:id="loginButton" text="Iniciar sesión" onAction="#onLogin"/>
-                <Button fx:id="registerButton" text="Registrarse" onAction="#onOpenRegister"/>
+                <Button fx:id="loginButton" text="Log in" onAction="#onLogin"/>
+                <Button fx:id="registerButton" text="Register" onAction="#onOpenRegister"/>
             </HBox>
         </VBox>
     </center>

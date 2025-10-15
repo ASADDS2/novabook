@@ -89,7 +89,7 @@ public final class ServiceRegistry {
             boolean hasAdmin = admins != null && !admins.isEmpty();
             if (!hasAdmin) {
                 com.codeup.novabook.domain.User u = new com.codeup.novabook.domain.User();
-                u.setName("Administrador");
+                u.setName("Administrator");
                 u.setEmail("admin@novabook.local");
                 u.setPassword("Admin123!");
                 u.setPhone("");
