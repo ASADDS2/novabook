@@ -32,7 +32,7 @@ import java.util.logging.Logger;
  *   <li><strong>Access Control</strong> - Tracks member access levels</li>
  * </ul>
  * 
- * @author NovaBook Team
+ * @author Coder
  * @version 1.0
  * @since 1.0
  */

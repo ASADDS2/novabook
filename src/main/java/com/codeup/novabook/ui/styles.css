@@ -1,0 +1,8 @@
+/* Basic, original look and feel for NovaBook */
+.root { -fx-font-family: "Segoe UI", sans-serif; }
+.app-title { -fx-font-size: 20px; -fx-font-weight: bold; }
+.tab-pane .tab-header-background { -fx-background-color: linear-gradient(to right, #1f4037, #99f2c8); }
+.button { -fx-background-radius: 6; -fx-background-color: #1f4037; -fx-text-fill: white; }
+.button:hover { -fx-background-color: #2a5c51; }
+.table-view { -fx-background-color: white; -fx-border-color: #e0e0e0; }
+.text-field { -fx-background-radius: 6; -fx-border-radius: 6; }

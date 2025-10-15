@@ -1,0 +1,40 @@
+oct. 14, 2025 6:09:13 P. M. com.codeup.novabook.repository.impl.BookjdbcRepository findAll
+INFORMACIÓN: Book list executed
+oct. 14, 2025 6:09:13 P. M. com.codeup.novabook.repository.impl.BookjdbcRepository findAll
+GRAVE: Error executing list books: Failed to connect to database
+oct. 14, 2025 6:11:59 P. M. com.codeup.novabook.repository.impl.LoanjdbcRepository findAll
+INFORMACIÓN: Loan list executed
+oct. 14, 2025 6:11:59 P. M. com.codeup.novabook.repository.impl.LoanjdbcRepository findAll
+GRAVE: Error executing list loans: Failed to connect to database
+oct. 14, 2025 6:12:49 P. M. com.codeup.novabook.infra.HttpLogger log
+INFORMACIÓN: GET /books?query=
+oct. 14, 2025 6:12:49 P. M. com.codeup.novabook.repository.impl.BookjdbcRepository findAll
+INFORMACIÓN: Book list executed
+oct. 14, 2025 6:12:49 P. M. com.codeup.novabook.repository.impl.BookjdbcRepository findAll
+GRAVE: Error executing list books: Failed to connect to database
+oct. 14, 2025 6:17:59 P. M. com.codeup.novabook.repository.impl.BookjdbcRepository findAll
+INFORMACIÓN: Book list executed
+oct. 14, 2025 6:18:00 P. M. com.codeup.novabook.repository.impl.BookjdbcRepository findAll
+GRAVE: Error executing list books: Failed to connect to database
+oct. 14, 2025 6:18:01 P. M. com.codeup.novabook.repository.impl.LoanjdbcRepository findAll
+INFORMACIÓN: Loan list executed
+oct. 14, 2025 6:18:01 P. M. com.codeup.novabook.repository.impl.LoanjdbcRepository findAll
+GRAVE: Error executing list loans: Failed to connect to database
+oct. 14, 2025 7:15:33 P. M. com.codeup.novabook.infra.ServiceRegistry <init>
+INFORMACIÓN: Database connection preflight: OK
+oct. 14, 2025 7:16:14 P. M. com.codeup.novabook.repository.impl.UserjdbcRepository authenticate
+ADVERTENCIA: BCrypt check failed, falling back to plain compare
+oct. 14, 2025 7:16:14 P. M. com.codeup.novabook.repository.impl.BookjdbcRepository findAll
+INFORMACIÓN: Book list executed
+oct. 14, 2025 7:16:14 P. M. com.codeup.novabook.repository.impl.MemberjdbcRepository findAll
+INFORMACIÓN: Member list executed
+oct. 14, 2025 7:16:14 P. M. com.codeup.novabook.repository.impl.LoanjdbcRepository findAll
+INFORMACIÓN: Loan list executed
+oct. 14, 2025 7:16:42 P. M. com.codeup.novabook.infra.HttpLogger log
+INFORMACIÓN: POST /books
+oct. 14, 2025 7:16:42 P. M. com.codeup.novabook.repository.impl.BookjdbcRepository existsByIsbn
+INFORMACIÓN: Book exists check executed: 123
+oct. 14, 2025 7:16:42 P. M. com.codeup.novabook.repository.impl.BookjdbcRepository findByIsbn
+INFORMACIÓN: Book search by ISBN executed: 123
+oct. 14, 2025 7:16:42 P. M. com.codeup.novabook.repository.impl.BookjdbcRepository findAll
+INFORMACIÓN: Book list executed

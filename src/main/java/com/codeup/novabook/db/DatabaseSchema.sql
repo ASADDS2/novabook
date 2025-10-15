@@ -10,7 +10,7 @@
 CREATE DATABASE IF NOT EXISTS nova_db CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci;
 USE nova_db;
 
-CREATE USER 'nova_user'@'localhost' IDENTIFIED BY '321novabook';
+CREATE USER 'nova_user'@'localhost' IDENTIFIED BY 'A6g9Hj2tQ4r8Pz3X';
 GRANT ALL PRIVILEGES ON nova_db.* TO 'nova_user'@'localhost';
 FLUSH PRIVILEGES;
 

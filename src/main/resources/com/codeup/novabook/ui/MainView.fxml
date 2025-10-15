@@ -1,0 +1,80 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+<?import javafx.geometry.Insets?>
+<VBox xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1"
+      fx:controller="com.codeup.novabook.ui.MainController" spacing="10" stylesheets="@styles.css">
+    <children>
+        <Label text="NovaBook Library" styleClass="app-title" />
+        <TabPane>
+            <tabs>
+                <Tab text="Books">
+                    <content>
+                        <VBox spacing="6">
+                            <padding>
+                                <Insets topRightBottomLeft="10"/>
+                            </padding>
+                            <HBox spacing="6">
+                                <TextField fx:id="bookSearchField" promptText="Search by title or author" />
+                                <Button text="Search" onAction="#onSearchBooks" />
+                                <Button text="Import CSV" onAction="#onImportBooksCsv" />
+                                <Button text="Export CSV" onAction="#onExportBooksCsv" />
+                            </HBox>
+                            <TableView fx:id="booksTable" prefHeight="400">
+                                <columns>
+                                    <TableColumn fx:id="colIsbn" text="ISBN" prefWidth="150" />
+                                    <TableColumn fx:id="colTitle" text="Title" prefWidth="250" />
+                                    <TableColumn fx:id="colAuthor" text="Author" prefWidth="200" />
+                                    <TableColumn fx:id="colStock" text="Stock" prefWidth="80" />
+                                </columns>
+                            </TableView>
+                            <HBox spacing="6">
+                                <TextField fx:id="isbnField" promptText="ISBN" />
+                                <TextField fx:id="titleField" promptText="Title" />
+                                <TextField fx:id="authorField" promptText="Author" />
+                                <TextField fx:id="stockField" promptText="Stock" />
+                                <Button text="Add" onAction="#onAddBook" />
+                                <Button text="Update" onAction="#onUpdateBook" />
+                                <Button text="Delete" onAction="#onDeleteBook" />
+                            </HBox>
+                        </VBox>
+                    </content>
+                </Tab>
+                <Tab text="Members">
+                    <content>
+                        <VBox spacing="6">
+                            <padding>
+                                <Insets topRightBottomLeft="10"/>
+                            </padding>
+                            <HBox spacing="6">
+                                <TextField fx:id="memberSearchField" promptText="Search by name" />
+                                <Button text="Search" onAction="#onSearchMembers" />
+                                <Button text="Import CSV" onAction="#onImportMembersCsv" />
+                                <Button text="Export CSV" onAction="#onExportMembersCsv" />
+                            </HBox>
+                            <TableView fx:id="membersTable" prefHeight="400" />
+                        </VBox>
+                    </content>
+                </Tab>
+                <Tab text="Loans">
+                    <content>
+                        <VBox spacing="6">
+                            <padding>
+                                <Insets topRightBottomLeft="10"/>
+                            </padding>
+                            <HBox spacing="6">
+                                <TextField fx:id="memberIdField" promptText="Member ID" />
+                                <TextField fx:id="bookIdField" promptText="Book ID" />
+                                <TextField fx:id="dueDateField" promptText="Due Date (YYYY-MM-DD)" />
+                                <Button text="Borrow" onAction="#onBorrowBook" />
+                                <Button text="Return Selected" onAction="#onReturnLoan" />
+                                <Button text="Export Overdue Loans" onAction="#onExportOverdueLoans" />
+                            </HBox>
+                            <TableView fx:id="loansTable" prefHeight="400" />
+                        </VBox>
+                    </content>
+                </Tab>
+            </tabs>
+        </TabPane>
+    </children>
+</VBox>

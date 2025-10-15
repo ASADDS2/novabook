@@ -31,7 +31,7 @@ import java.util.logging.Logger;
  *   <li><strong>Return Management</strong> - Tracks returned and active loans</li>
  * </ul>
  * 
- * @author NovaBook Team
+ * @author Coder
  * @version 1.0
  * @since 1.0
  */

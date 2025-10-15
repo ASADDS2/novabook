@@ -13,7 +13,7 @@ import java.util.Optional;
  * Repository interface for Book entity operations.
  * Defines CRUD operations and custom queries for Book management.
  * 
- * @author Coder
+ * @author 
  * @version 1.0
  */
 public interface IBookRepository {
